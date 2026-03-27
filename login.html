@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authenticator - WardWatch</title>
+    <!-- Premium External Fonts -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="auth-page">
+        <!-- Breathtaking Background Gradient -->
+        <div class="auth-bg-effect"></div>
+
+        <div class="auth-card">
+            <div class="auth-header">
+                <div style="
+                    background: white;
+                    padding: 16px 24px;
+                    border-radius: 16px;
+                    margin: 0 auto 20px;
+                    display: inline-flex;
+                    justify-content: center;
+                    box-shadow: 0 0 30px rgba(59,130,246,0.35);
+                    transition: 0.3s ease;">
+                    <video autoplay muted loop playsinline style="width: 220px; height: auto; border-radius: 12px;">
+                        <source src="WardWatch.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <form onsubmit="handleLogin(event)" style="display:flex; flex-direction:column; gap:24px;">
+
+                    <div class="form-field">
+                        <label class="form-label">Deployment Role</label>
+                        <div class="select-wrapper">
+                            <select id="role-select" class="form-select" required>
+                                <option value="doctor">Attending Physician</option>
+                                <option value="nurse">Registered Nurse (Critical Care)</option>
+                                <option value="cleaner">EVS Cleaner (Ward Cleaning)</option>
+                                <option value="admin">Administrator (Command Center)</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label">Access Passcode</label>
+                        <input type="password" class="form-input" placeholder="Enter secure PIN (use 1234)" value="1234"
+                            required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="loginBtn"
+                        style="padding: 16px; font-size: 1.05rem; margin-top: 8px;">
+                        Establish Secure Uplink <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+        <script>
+            function handleLogin(e) {
+                e.preventDefault();
+                const btn = document.getElementById('loginBtn');
+                const role = document.getElementById('role-select').value;
+
+                localStorage.setItem('wardwatch_role', role);
+
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Authenticating...';
+                btn.style.opacity = '0.8';
+                btn.style.pointerEvents = 'none';
+                btn.style.boxShadow = 'var(--shadow-glow)';
+
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 800);
+            }
+        </script>
+</body>
+
+</html>

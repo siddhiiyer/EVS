@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WardWatch OS Dashboard</title>
+    <!-- Ultra-Premium Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="sidebar">
+            <div class="brand" style="justify-content: center;">
+                    <video autoplay muted loop playsinline style="width: 100%; max-width: 180px; height: auto; border-radius: 8px;">
+                        <source src="WardWatch.mp4" type="video/mp4">
+                    </video>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" id="nav-dashboard">
+                    <i class="fa-solid fa-border-all"></i> Command Center
+                </a>
+                <a href="#" class="nav-item" id="nav-multi-ward">
+                    <i class="fa-solid fa-chart-pie"></i> Macro Overview
+                </a>
+                <a href="#" class="nav-item" id="nav-staff">
+                    <i class="fa-solid fa-users"></i> Staff Matrix
+                </a>
+                <a href="#" class="nav-item" id="nav-handover-tab">
+                    <i class="fa-solid fa-file-export"></i> Shift Summary
+                </a>
+            </nav>
+            
+            <div class="user-profile">
+                <div class="user-avatar" id="avatar-icon"><i class="fa-solid fa-user-doctor"></i></div>
+                <div class="user-info">
+                    <div class="user-name" id="user-name">Dr. M. Jenkins</div>
+                    <div class="user-role" id="user-role">Attending Physician</div>
+                </div>
+                <button class="btn-icon" onclick="window.location.href='login.html'" title="Secure Logout">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN LAYOUT -->
+        <main class="main-wrapper">
+            
+            <!-- HEADER -->
+            <header class="topbar">
+                <div>
+                    <h1 class="page-title" id="page-title">General Ward 3A</h1>
+                    <p class="page-subtitle" id="page-subtitle">Real-Time Operations Syncing</p>
+                </div>
+                
+                <div class="top-actions">
+                    <!-- Forecast Pills -->
+                    <div class="forecast-widget">
+                        <div class="forecast-pill warn" id="forecast-card-4">
+                            <span class="forecast-label">Yield 4:00 PM</span>
+                            <span class="forecast-val" id="forecast-val-4">92% <i class="fa-solid fa-arrow-up-right-dots" style="font-size:0.8rem"></i></span>
+                        </div>
+                        <div class="forecast-pill" id="forecast-card-8">
+                            <span class="forecast-label">Yield 8:00 PM</span>
+                            <span class="forecast-val" id="forecast-val-8">88% <i class="fa-solid fa-arrow-down-right-dots" style="font-size:0.8rem"></i></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Top Action Space -->
+                    <!-- Escalation Bell -->
+                    <div class="bell-container">
+                        <button class="bell-btn" id="bell-btn"><i class="fa-solid fa-bell"></i></button>
+                        <div class="bell-dot" id="bell-dot"></div>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content-scroll">
+                
+                <!-- DYNAMIC ESCALATION FLAGS (Alert Banner Array) -->
+                <div class="escalation-area" id="flags-container"></div>
+                
+                <!-- VIEW 1: COMMAND CENTER (Beds + Queues) -->
+                <div class="view-container active" id="view-dashboard">
+                    <div class="dashboard-layout">
+                        
+                        <!-- Left: Clinical Workspace -->
+                        <section>
+                            <div class="workspace-tabs" id="doctor-tabs">
+                                <button class="w-tab active" data-target="tab-beds">Bed Availability</button>
+                                <button class="w-tab" data-target="tab-schedule">Daily Schedule</button>
+                                <button class="w-tab" data-target="tab-meds">Medication Summary</button>
+                                <button class="w-tab" data-target="tab-history">Patient History</button>
+                                <button class="w-tab" data-target="tab-discharge">Discharge Review</button>
+                            </div>
+
+                            <div class="w-tab-content">
+                                <!-- TAB 1: BEDS -->
+                                <div class="w-tab-pane active" id="tab-beds">
+                                    <div class="section-header" style="margin-top:20px;">
+                                        <h2 class="section-title"><i class="fa-solid fa-bed-pulse"></i> Tactical Bed Grid</h2>
+                                        <div class="filters">
+                                            <button class="filter-btn active" data-filter="all">All (24)</button>
+                                            <button class="filter-btn" data-filter="occupied">Active</button>
+                                            <button class="filter-btn" data-filter="cleaning">Cleaning</button>
+                                            <button class="filter-btn" data-filter="available">Empty</button>
+                                        </div>
+                                    </div>
+                                    <div class="beds-grid" id="beds-container"></div>
+                                </div>
+
+                                <!-- TAB 2: SCHEDULE -->
+                                <div class="w-tab-pane" id="tab-schedule">
+                                    <div class="section-header" style="margin-top:20px;"><h2 class="section-title"><i class="fa-solid fa-clock"></i> Daily Rounds Schedule</h2></div>
+                                    <div class="module-card">
+                                        <div class="list-item"><div class="q-info"><h4>08:00 AM • Routine Round</h4><p>Bed 101A (James Carter), Bed 102A (Maria Garcia)</p></div></div>
+                                        <div class="list-item"><div class="q-info"><h4>09:30 AM • Post-Op Check</h4><p>Bed 103B (Robert Chen) • Surgical incision review</p></div></div>
+                                        <div class="list-item"><div class="q-info"><h4>11:00 AM • Case Consult</h4><p>Bed 105A • Coordination with Oncology</p></div></div>
+                                    </div>
+                                </div>
+
+                                <!-- TAB 3: MEDS -->
+                                <div class="w-tab-pane" id="tab-meds">
+                                    <div class="section-header" style="margin-top:20px;"><h2 class="section-title"><i class="fa-solid fa-pills"></i> Medication Summary</h2></div>
+                                    <div class="module-card">
+                                        <div class="list-item"><div class="q-info"><h4 style="color:var(--text-primary)">James Carter (101A)</h4><p>Ceftriaxone 1g IV • BID</p></div><button class="q-action-btn done" onclick="this.innerHTML='<i class=&quot;fa-solid fa-check&quot;></i>'; this.style.color='white'"><i class="fa-solid fa-syringe"></i></button></div>
+                                        <div class="list-item"><div class="q-info"><h4 style="color:var(--text-primary)">Maria Garcia (102A)</h4><p>Acetaminophen 500mg PO • PRN Pain</p></div><button class="q-action-btn done" onclick="this.innerHTML='<i class=&quot;fa-solid fa-check&quot;></i>'; this.style.color='white'"><i class="fa-solid fa-syringe"></i></button></div>
+                                        <div class="list-item"><div class="q-info"><h4 style="color:var(--text-primary)">Robert Chen (103B)</h4><p>Aspirin 81mg PO • Daily</p></div><button class="q-action-btn done" onclick="this.innerHTML='<i class=&quot;fa-solid fa-check&quot;></i>'; this.style.color='white'"><i class="fa-solid fa-syringe"></i></button></div>
+                                    </div>
+                                </div>
+
+                                <!-- TAB 4: HISTORY -->
+                                <div class="w-tab-pane" id="tab-history">
+                                    <div class="section-header" style="margin-top:20px;"><h2 class="section-title"><i class="fa-solid fa-file-medical"></i> Patient History (EMR Quick View)</h2></div>
+                                    <div class="module-card">
+                                        <div class="list-item" style="align-items:flex-start">
+                                            <div class="q-info">
+                                                <h4 style="font-size:1.05rem; margin-bottom:8px">James Carter • DOB: 04/12/1965</h4>
+                                                <p style="margin-bottom:4px"><strong>History:</strong> Type II Diabetes, Hypertension. Non-smoker.</p>
+                                                <p style="margin-bottom:4px"><strong>Current Admission:</strong> Pneumonia (Community acquired). Day 5.</p>
+                                                <p><strong>Recent Labs:</strong> WBC 12.4 (Trending down), Creatinine 1.1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- TAB 5: DISCHARGE -->
+                                <div class="w-tab-pane" id="tab-discharge">
+                                    <div class="section-header" style="margin-top:20px;"><h2 class="section-title"><i class="fa-solid fa-file-signature"></i> Discharge Review</h2></div>
+                                    <div class="module-card">
+                                        <div class="list-item" style="border-left:3px solid var(--accent-blue)">
+                                            <div class="q-info">
+                                                <h4>Maria Garcia (Bed 102A)</h4>
+                                                <p>Post-Op Observation completed. Vitals stable x 24hrs. Pending attending sign-off.</p>
+                                            </div>
+                                            <button class="btn btn-primary" onclick="this.innerHTML='<i class=&quot;fa-solid fa-check&quot;></i> Signed'; this.disabled=true; this.style.opacity='0.5'">Sign Off</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+                        
+                        <!-- Right: Action Queues (Sticky) -->
+                        <aside class="queues-panel">
+                            
+                            <div class="queue-box">
+                                <div class="queue-header">
+                                    <h3 class="queue-title"><i class="fa-solid fa-person-walking-arrow-right"></i> Target Discharges</h3>
+                                    <span class="queue-count" id="count-discharge">2</span>
+                                </div>
+                                <div class="queue-list" id="queue-discharge">
+                                    <!-- Injected via JS -->
+                                </div>
+                            </div>
+                            
+                            <div class="queue-box">
+                                <div class="queue-header">
+                                    <h3 class="queue-title" style="color:var(--accent-blue)"><i class="fa-solid fa-truck-medical"></i> Imminent Admissions</h3>
+                                    <span class="queue-count" id="count-admit">2</span>
+                                </div>
+                                <div class="queue-list" id="queue-admit">
+                                    <!-- Injected via JS -->
+                                </div>
+                            </div>
+                            
+                        </aside>
+                    </div>
+                </div>
+
+                <!-- VIEW 2: MULTI-WARD ADMIN -->
+                <div class="view-container" id="view-multi-ward">
+                    <div class="section-header">
+                        <h2 class="section-title"><i class="fa-solid fa-city"></i> Global Situational Awareness</h2>
+                    </div>
+                    <div class="multi-grid" id="multi-ward-container">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+
+                <!-- VIEW 3: STAFF ASSIGNMENT -->
+                <div class="view-container" id="view-staff">
+                    <div class="section-header">
+                        <h2 class="section-title"><i class="fa-solid fa-people-arrows"></i> Drag & Drop Staff Routing</h2>
+                    </div>
+                    <div class="staff-assignment" id="staff-drag-drop">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+
+                <!-- VIEW 4: SHIFT HANDOVER -->
+                <div class="view-container" id="view-handover">
+                    <div class="section-header">
+                        <h2 class="section-title"><i class="fa-solid fa-file-export"></i> Formal Shift Handover Report</h2>
+                        <button class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-print"></i> Execute Print</button>
+                    </div>
+                    <div class="printing" id="handover-content" style="background:var(--bg-surface); padding:32px; border-radius:16px; border:1px solid var(--border-color);">
+                        <!-- Auto-Generated Report Injected via JS -->
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

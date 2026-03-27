@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WardWatch - Next-Gen Clinical Operations</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center; padding: 120px 24px 60px; position: relative; overflow: hidden; background: var(--bg-main); }
+        .hero::before { content: ''; position: absolute; width: 800px; height: 800px; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 60%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 0; }
+        .hero-content { z-index: 1; max-width: 800px; }
+        .hero-title { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 24px; background: linear-gradient(to right, #fff, #93c5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-subtitle { font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 40px; max-width: 600px; margin-inline: auto; line-height: 1.6; }
+        .hero-video-container { background: white; padding: 16px; border-radius: 24px; display: inline-flex; box-shadow: 0 0 40px rgba(59,130,246,0.3); margin-bottom: 32px; }
+        .hero-video { width: 100%; max-width: 240px; border-radius: 12px; }
+    </style>
+</head>
+<body>
+    <!-- Public Navbar -->
+    <nav class="public-nav">
+        <a href="home.html" class="nav-brand">
+            <video autoplay muted loop playsinline class="nav-brand-video">
+                <source src="WardWatch.mp4" type="video/mp4">
+            </video>
+            WardWatch
+        </a>
+        <div class="nav-links">
+            <a href="home.html" class="active">Home</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html" class="btn btn-primary" style="color:white; padding: 8px 16px; border-radius: 8px;">Login Terminal <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="hero-content">
+            <div class="hero-video-container">
+                <video autoplay muted loop playsinline class="hero-video">
+                    <source src="WardWatch.mp4" type="video/mp4">
+                </video>
+            </div>
+            <h1 class="hero-title">The Future of Hospital Operations</h1>
+            <p class="hero-subtitle">WardWatch transforms clinical chaos into coordinated efficiency. Real-time patient flow, role-based commands, and proactive bed management built for modern healthcare facilities.</p>
+            <div style="display: flex; gap: 16px; justify-content: center;">
+                <a href="login.html" class="btn btn-primary" style="padding: 16px 32px; font-size: 1.1rem;">Launch OS</a>
+                <a href="#features" class="btn btn-secondary" style="padding: 16px 32px; font-size: 1.1rem;">View Features</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
